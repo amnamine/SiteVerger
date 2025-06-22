@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plateforme de Gestion Technique du Verger</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-tree"></i>
+                <h1 data-fr="Plateforme Verger" data-ar="منصة البستان">Plateforme Verger</h1>
+            </div>
+            <div class="language-switch">
+                <button onclick="switchLanguage('fr')" class="lang-btn active" data-lang="fr">Français</button>
+                <button onclick="switchLanguage('ar')" class="lang-btn" data-lang="ar">العربية</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h2 data-fr="Gestion Intelligente de votre Verger" data-ar="إدارة ذكية لبستانك">Gestion Intelligente de votre Verger</h2>
+                    <p data-fr="Surveillez en temps réel vos arbres, optimisez l'irrigation et prenez des décisions éclairées grâce à nos capteurs IoT" data-ar="راقب أشجارك في الوقت الفعلي، وحسّن الري واتخذ قرارات مدروسة بفضل مستشعرات إنترنت الأشياء">Surveillez en temps réel vos arbres, optimisez l'irrigation et prenez des décisions éclairées grâce à nos capteurs IoT</p>
+                    
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-thermometer-half"></i>
+                            <span data-fr="Surveillance en temps réel" data-ar="مراقبة في الوقت الفعلي">Surveillance en temps réel</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-tint"></i>
+                            <span data-fr="Irrigation intelligente" data-ar="ري ذكي">Irrigation intelligente</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-chart-line"></i>
+                            <span data-fr="Analyses avancées" data-ar="تحليلات متقدمة">Analyses avancées</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="login-section">
+                    <div class="login-card">
+                        <h3 data-fr="Connexion" data-ar="تسجيل الدخول">Connexion</h3>
+                        <form id="loginForm" class="login-form">
+                            <div class="form-group">
+                                <label for="username" data-fr="Nom d'utilisateur" data-ar="اسم المستخدم">Nom d'utilisateur</label>
+                                <input type="text" id="username" name="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" data-fr="Mot de passe" data-ar="كلمة المرور">Mot de passe</label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+                            <button type="submit" class="btn-login" data-fr="Se connecter" data-ar="تسجيل الدخول">Se connecter</button>
+                        </form>
+                        <div id="loginMessage" class="message"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p data-fr="© 2024 Plateforme de Gestion Technique du Verger. Tous droits réservés." data-ar="© 2024 منصة إدارة البستان التقنية. جميع الحقوق محفوظة.">© 2024 Plateforme de Gestion Technique du Verger. Tous droits réservés.</p>
+        </footer>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/language.js"></script>
+</body>
+</html> 

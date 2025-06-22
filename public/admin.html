@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Plateforme Verger</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="dashboard">
+    <header class="dashboard-header">
+        <div class="logo">
+            <i class="fas fa-tree"></i>
+            <h1 data-fr="Administration" data-ar="الإدارة">Administration</h1>
+        </div>
+        
+        <nav class="dashboard-nav">
+            <a href="/dashboard" class="nav-link" data-fr="Retour au tableau de bord" data-ar="العودة إلى لوحة التحكم">Retour au tableau de bord</a>
+        </nav>
+        
+        <div class="user-menu">
+            <div class="language-switch">
+                <button onclick="switchLanguage('fr')" class="lang-btn active" data-lang="fr">FR</button>
+                <button onclick="switchLanguage('ar')" class="lang-btn" data-lang="ar">AR</button>
+            </div>
+            <span id="userName" class="user-name"></span>
+            <button onclick="logout()" class="btn btn-secondary" data-fr="Déconnexion" data-ar="تسجيل الخروج">Déconnexion</button>
+        </div>
+    </header>
+
+    <main class="dashboard-content">
+        <div class="section-header">
+            <h2 data-fr="Gestion des utilisateurs" data-ar="إدارة المستخدمين">Gestion des utilisateurs</h2>
+            <button class="btn btn-primary" onclick="showAddUserModal()" data-fr="Ajouter un utilisateur" data-ar="إضافة مستخدم">Ajouter un utilisateur</button>
+        </div>
+        
+        <div class="table-container">
+            <table class="table" id="usersTable">
+                <thead>
+                    <tr>
+                        <th data-fr="Nom complet" data-ar="الاسم الكامل">Nom complet</th>
+                        <th data-fr="Nom d'utilisateur" data-ar="اسم المستخدم">Nom d'utilisateur</th>
+                        <th data-fr="Email" data-ar="البريد الإلكتروني">Email</th>
+                        <th data-fr="Rôle" data-ar="الدور">Rôle</th>
+                        <th data-fr="Date de création" data-ar="تاريخ الإنشاء">Date de création</th>
+                        <th data-fr="Actions" data-ar="الإجراءات">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="6" data-fr="Chargement..." data-ar="جاري التحميل...">Chargement...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal pour ajouter/modifier un utilisateur -->
+    <div id="modalOverlay" class="modal-overlay" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html> 

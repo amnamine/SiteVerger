@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord - Plateforme Verger</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard">
+    <header class="dashboard-header">
+        <div class="logo">
+            <i class="fas fa-tree"></i>
+            <h1 data-fr="Plateforme Verger" data-ar="منصة البستان">Plateforme Verger</h1>
+        </div>
+        
+        <nav class="dashboard-nav">
+            <a href="#" class="nav-link active" data-section="overview" data-fr="Vue d'ensemble" data-ar="نظرة عامة">Vue d'ensemble</a>
+            <a href="#" class="nav-link" data-section="capteurs" data-fr="Capteurs" data-ar="المستشعرات">Capteurs</a>
+            <a href="#" class="nav-link" data-section="arbres" data-fr="Arbres" data-ar="الأشجار">Arbres</a>
+            <a href="#" class="nav-link" data-section="interventions" data-fr="Interventions" data-ar="التدخلات">Interventions</a>
+            <a href="#" class="nav-link" data-section="alertes" data-fr="Alertes" data-ar="التنبيهات">Alertes</a>
+            <a href="#" class="nav-link admin-only" data-section="admin" data-fr="Administration" data-ar="الإدارة">Administration</a>
+        </nav>
+        
+        <div class="user-menu">
+            <div class="language-switch">
+                <button onclick="switchLanguage('fr')" class="lang-btn active" data-lang="fr">FR</button>
+                <button onclick="switchLanguage('ar')" class="lang-btn" data-lang="ar">AR</button>
+            </div>
+            <span id="userName" class="user-name"></span>
+            <button onclick="logout()" class="btn btn-secondary" data-fr="Déconnexion" data-ar="تسجيل الخروج">Déconnexion</button>
+        </div>
+    </header>
+
+    <main class="dashboard-content">
+        <!-- Vue d'ensemble -->
+        <section id="overview" class="dashboard-section active">
+            <h2 data-fr="Vue d'ensemble du verger" data-ar="نظرة عامة على البستان">Vue d'ensemble du verger</h2>
+            
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3><i class="fas fa-thermometer-half"></i> <span data-fr="Température actuelle" data-ar="درجة الحرارة الحالية">Température actuelle</span></h3>
+                    <div class="stat-item">
+                        <div class="stat-value" id="currentTemp">--°C</div>
+                        <div class="stat-label" data-fr="Dernière mise à jour" data-ar="آخر تحديث">Dernière mise à jour</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-tint"></i> <span data-fr="Humidité du sol" data-ar="رطوبة التربة">Humidité du sol</span></h3>
+                    <div class="stat-item">
+                        <div class="stat-value" id="currentHumidity">--%</div>
+                        <div class="stat-label" data-fr="Niveau optimal" data-ar="المستوى الأمثل">Niveau optimal</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-tree"></i> <span data-fr="Arbres surveillés" data-ar="الأشجار المراقبة">Arbres surveillés</span></h3>
+                    <div class="stat-item">
+                        <div class="stat-value" id="treeCount">--</div>
+                        <div class="stat-label" data-fr="Total" data-ar="المجموع">Total</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-exclamation-triangle"></i> <span data-fr="Alertes actives" data-ar="التنبيهات النشطة">Alertes actives</span></h3>
+                    <div class="stat-item">
+                        <div class="stat-value" id="alertCount">--</div>
+                        <div class="stat-label" data-fr="À traiter" data-ar="للعلاج">À traiter</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3><i class="fas fa-chart-line"></i> <span data-fr="Évolution de la température" data-ar="تطور درجة الحرارة">Évolution de la température</span></h3>
+                    <canvas id="tempChart" width="400" height="200"></canvas>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-chart-area"></i> <span data-fr="Humidité sur 24h" data-ar="الرطوبة خلال 24 ساعة">Humidité sur 24h</span></h3>
+                    <canvas id="humidityChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-list"></i> <span data-fr="Dernières interventions" data-ar="آخر التدخلات">Dernières interventions</span></h3>
+                <div class="table-container">
+                    <table class="table" id="recentInterventionsTable">
+                        <thead>
+                            <tr>
+                                <th data-fr="Date" data-ar="التاريخ">Date</th>
+                                <th data-fr="Type" data-ar="النوع">Type</th>
+                                <th data-fr="Arbre" data-ar="الشجرة">Arbre</th>
+                                <th data-fr="Responsable" data-ar="المسؤول">Responsable</th>
+                                <th data-fr="Statut" data-ar="الحالة">Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" data-fr="Chargement..." data-ar="جاري التحميل...">Chargement...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capteurs -->
+        <section id="capteurs" class="dashboard-section">
+            <div class="section-header">
+                <h2 data-fr="Gestion des capteurs" data-ar="إدارة المستشعرات">Gestion des capteurs</h2>
+                <button class="btn btn-primary" onclick="showAddCapteurModal()" data-fr="Ajouter un capteur" data-ar="إضافة مستشعر">Ajouter un capteur</button>
+            </div>
+            
+            <div class="table-container">
+                <table class="table" id="capteursTable">
+                    <thead>
+                        <tr>
+                            <th data-fr="Nom" data-ar="الاسم">Nom</th>
+                            <th data-fr="Type" data-ar="النوع">Type</th>
+                            <th data-fr="Localisation" data-ar="الموقع">Localisation</th>
+                            <th data-fr="Statut" data-ar="الحالة">Statut</th>
+                            <th data-fr="Dernière lecture" data-ar="آخر قراءة">Dernière lecture</th>
+                            <th data-fr="Actions" data-ar="الإجراءات">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="6" data-fr="Chargement..." data-ar="جاري التحميل...">Chargement...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Arbres -->
+        <section id="arbres" class="dashboard-section">
+            <div class="section-header">
+                <h2 data-fr="Gestion des arbres" data-ar="إدارة الأشجار">Gestion des arbres</h2>
+                <button class="btn btn-primary" onclick="showAddArbreModal()" data-fr="Ajouter un arbre" data-ar="إضافة شجرة">Ajouter un arbre</button>
+            </div>
+            
+            <div class="table-container">
+                <table class="table" id="arbresTable">
+                    <thead>
+                        <tr>
+                            <th data-fr="Variété" data-ar="النوع">Variété</th>
+                            <th data-fr="Âge" data-ar="العمر">Âge</th>
+                            <th data-fr="Localisation" data-ar="الموقع">Localisation</th>
+                            <th data-fr="Statut" data-ar="الحالة">Statut</th>
+                            <th data-fr="Date de plantation" data-ar="تاريخ الزراعة">Date de plantation</th>
+                            <th data-fr="Actions" data-ar="الإجراءات">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="6" data-fr="Chargement..." data-ar="جاري التحميل...">Chargement...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Interventions -->
+        <section id="interventions" class="dashboard-section">
+            <div class="section-header">
+                <h2 data-fr="Gestion des interventions" data-ar="إدارة التدخلات">Gestion des interventions</h2>
+                <button class="btn btn-primary" onclick="showAddInterventionModal()" data-fr="Planifier une intervention" data-ar="تخطيط تدخل">Planifier une intervention</button>
+            </div>
+            
+            <div class="table-container">
+                <table class="table" id="interventionsTable">
+                    <thead>
+                        <tr>
+                            <th data-fr="Date" data-ar="التاريخ">Date</th>
+                            <th data-fr="Type" data-ar="النوع">Type</th>
+                            <th data-fr="Description" data-ar="الوصف">Description</th>
+                            <th data-fr="Arbre" data-ar="الشجرة">Arbre</th>
+                            <th data-fr="Responsable" data-ar="المسؤول">Responsable</th>
+                            <th data-fr="Statut" data-ar="الحالة">Statut</th>
+                            <th data-fr="Actions" data-ar="الإجراءات">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="7" data-fr="Chargement..." data-ar="جاري التحميل...">Chargement...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Alertes -->
+        <section id="alertes" class="dashboard-section">
+            <h2 data-fr="Alertes et notifications" data-ar="التنبيهات والإشعارات">Alertes et notifications</h2>
+            
+            <div class="alertes-container" id="alertesContainer">
+                <div class="message" data-fr="Chargement des alertes..." data-ar="جاري تحميل التنبيهات...">Chargement des alertes...</div>
+            </div>
+        </section>
+
+        <!-- Administration (admin seulement) -->
+        <section id="admin" class="dashboard-section">
+            <h2 data-fr="Administration" data-ar="الإدارة">Administration</h2>
+            
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3><i class="fas fa-users"></i> <span data-fr="Gestion des utilisateurs" data-ar="إدارة المستخدمين">Gestion des utilisateurs</span></h3>
+                    <button class="btn btn-primary" onclick="showUsersManagement()" data-fr="Gérer les utilisateurs" data-ar="إدارة المستخدمين">Gérer les utilisateurs</button>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-database"></i> <span data-fr="Sauvegarde" data-ar="النسخ الاحتياطي">Sauvegarde</span></h3>
+                    <button class="btn btn-primary" onclick="backupDatabase()" data-fr="Sauvegarder" data-ar="حفظ">Sauvegarder</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="modalOverlay" class="modal-overlay" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html> 
