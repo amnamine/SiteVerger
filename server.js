@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; 
 
 // Middleware
 app.use(cors());
@@ -22,7 +22,8 @@ app.use(session({
 }));
 
 // Base de données SQLite
-const db = new sqlite3.Database('./database/verger.db', (err) => {
+const dbPath = path.join(__dirname, 'database', 'verger.db');
+const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('Erreur de connexion à la base de données:', err.message);
     } else {
