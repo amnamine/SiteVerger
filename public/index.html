@@ -3,70 +3,467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plateforme de Gestion Technique du Verger</title>
+    <title>Vision Tech-Agro Dz</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(120deg, #e0f7fa 0%, #e8f5e9 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        /* NAVBAR */
+        .navbar {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0,188,212,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.7rem 2.5rem 0.7rem 2.5rem;
+            transition: box-shadow 0.2s, background 0.2s;
+        }
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .navbar-logo img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #fff;
+            object-fit: cover;
+            box-shadow: 0 1px 4px rgba(46,125,50,0.08);
+        }
+        .navbar-title {
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: #1b5e20;
+            letter-spacing: 1px;
+        }
+        .navbar-nav {
+            display: flex;
+            gap: 2.2rem;
+            align-items: center;
+        }
+        .navbar-nav a {
+            text-decoration: none;
+            color: #1b5e20;
+            font-weight: 600;
+            font-size: 1.08rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .navbar-nav a.active, .navbar-nav a:hover {
+            background: #e0f7fa;
+            color: #009688;
+        }
+        .navbar-lang {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .lang-btn {
+            background: #fff;
+            border: 1.5px solid #1b5e20;
+            color: #1b5e20;
+            border-radius: 8px;
+            padding: 0.3rem 1.1rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .lang-btn.active, .lang-btn:hover {
+            background: #1b5e20;
+            color: #fff;
+        }
+        /* SECTIONS */
+        .section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        .section-description {
+            background: linear-gradient(120deg, #e0f7fa 0%, #e8f5e9 100%);
+            padding: 4.5rem 1rem 2.5rem 1rem;
+            min-height: 50vh;
+        }
+        .branding-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .branding-logo {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #fff;
+            object-fit: cover;
+            box-shadow: 0 2px 12px rgba(46,125,50,0.10);
+        }
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1b5e20;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        .main-subtitle {
+            font-size: 1.18rem;
+            color: #388e3c;
+            margin-bottom: 1.7rem;
+            font-weight: 500;
+            text-align: center;
+        }
+        .cta-btn {
+            margin: 0 auto 0 auto;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(90deg, #00e676 0%, #00bcd4 100%);
+            color: #fff;
+            font-size: 1.15rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 2px 12px rgba(0,188,212,0.10);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            animation: fadeInUp 1.1s 0.2s both;
+        }
+        .cta-btn:hover {
+            background: linear-gradient(90deg, #00bcd4 0%, #00e676 100%);
+            transform: scale(1.06);
+            box-shadow: 0 4px 24px rgba(0,188,212,0.18);
+        }
+        .section-connexion {
+            background: #fff;
+            width: 100%;
+            padding: 3rem 0 3rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-card {
+            background: #f8fafc;
+            padding: 2.2rem 1.7rem 1.7rem 1.7rem;
+            border-radius: 18px;
+            box-shadow: 0 2px 16px rgba(0,188,212,0.10);
+            width: 100%;
+            max-width: 340px;
+            margin: 0 auto 0 auto;
+            animation: fadeInUp 1.1s 0.3s both;
+        }
+        .login-card h3 {
+            text-align: center;
+            color: #1b5e20;
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+        }
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+        .form-group label {
+            font-weight: 500;
+            color: #388e3c;
+        }
+        .form-group input {
+            padding: 0.7rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.2s;
+        }
+        .form-group input:focus {
+            border-color: #00bcd4;
+        }
+        .btn-login {
+            background: #1b5e20;
+            color: #fff;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.08rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-login:hover {
+            background: #00bcd4;
+        }
+        .message {
+            margin-top: 0.7rem;
+        }
+        .section-why {
+            background: linear-gradient(120deg, #e0f7fa 0%, #e8f5e9 100%);
+            width: 100%;
+            padding: 4rem 0 3rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeInUp 1.2s 0.4s both;
+        }
+        .about-title {
+            font-size: 1.7rem;
+            color: #009688;
+            font-weight: 700;
+            margin-bottom: 2.2rem;
+            text-align: center;
+        }
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.2rem 2.2rem;
+            width: 100%;
+            max-width: 900px;
+            justify-items: center;
+        }
+        .about-feature {
+            background: #f1f8e9;
+            border-radius: 16px;
+            padding: 1.5rem 1.2rem;
+            box-shadow: 0 1px 8px rgba(46,125,50,0.07);
+            display: flex;
+            align-items: flex-start;
+            gap: 1.1rem;
+            min-width: 220px;
+            max-width: 350px;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+            opacity: 0;
+            animation: fadeInCard 1.1s forwards;
+        }
+        .about-feature:nth-child(1) { animation-delay: 0.2s; }
+        .about-feature:nth-child(2) { animation-delay: 0.4s; }
+        .about-feature:nth-child(3) { animation-delay: 0.6s; }
+        .about-feature:nth-child(4) { animation-delay: 0.8s; }
+        .about-feature:hover {
+            transform: translateY(-6px) scale(1.04);
+            box-shadow: 0 8px 32px rgba(0,188,212,0.13);
+        }
+        .about-feature i {
+            font-size: 2.1rem;
+            color: #00bcd4;
+            margin-top: 0.2rem;
+        }
+        .about-feature-content {
+            text-align: left;
+        }
+        .about-feature span {
+            font-weight: 600;
+            color: #388e3c;
+            margin-bottom: 0.1rem;
+            display: block;
+            font-size: 1.08rem;
+        }
+        .about-feature p {
+            font-size: 1.01rem;
+            color: #444;
+            margin: 0;
+        }
+        /* FOOTER ENTREPRISE */
+        .footer-bar {
+            width: 100%;
+            background: #1b5e20;
+            color: #fff;
+            text-align: center;
+            padding: 2.2rem 0 1.2rem 0;
+            font-size: 1.08rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-top: 2rem;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .footer-logo img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #fff;
+            object-fit: cover;
+        }
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #b2ff59;
+        }
+        .footer-copyright {
+            width: 100%;
+            text-align: center;
+            margin-top: 1.2rem;
+            color: #b2ff59;
+            font-size: 0.98rem;
+        }
+        @media (max-width: 900px) {
+            .main-title { font-size: 1.5rem; }
+            .section-description { padding: 2.5rem 0.5rem 1.5rem 0.5rem; }
+            .about-features { grid-template-columns: 1fr; gap: 1.2rem; }
+            .section-why { padding: 2rem 0 1.5rem 0; }
+            .footer-content { flex-direction: column; align-items: center; gap: 1.2rem; }
+        }
+        @media (max-width: 600px) {
+            .main-title { font-size: 1.1rem; }
+            .branding-logo { width: 70px; height: 70px; }
+            .section-description { padding: 1rem 0.2rem 0.5rem 0.2rem; }
+            .section-why { padding: 0 0 0.5rem 0; }
+            .about-feature { min-width: 0; max-width: 100%; }
+            .footer-bar { padding: 1.2rem 0 0.7rem 0; }
+        }
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: none; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: none; }
+        }
+        @keyframes fadeInCard {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: none; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="logo">
-                <i class="fas fa-tree"></i>
-                <h1 data-fr="Plateforme Verger" data-ar="منصة البستان">Plateforme Verger</h1>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="images/image1.jpg" alt="Logo Vision Tech-Agro Dz" title="Logo Vision Tech-Agro Dz">
+            <span class="navbar-title">Vision Tech-Agro Dz</span>
+        </div>
+        <div class="navbar-nav">
+            <a href="#description" class="active">Accueil</a>
+            <a href="#why">Pourquoi nous ?</a>
+            <a href="#connexion">Connexion</a>
+        </div>
+        <div class="navbar-lang">
+            <button onclick="switchLanguage('fr')" class="lang-btn active" data-lang="fr">Français</button>
+            <button onclick="switchLanguage('ar')" class="lang-btn" data-lang="ar">العربية</button>
+        </div>
+    </nav>
+    <!-- DESCRIPTION SECTION -->
+    <section class="section section-description" id="description">
+        <div class="branding-block">
+            <img src="images/image1.jpg" alt="Logo Vision Tech-Agro Dz" class="branding-logo" title="Logo Vision Tech-Agro Dz">
+            <h1 class="main-title" data-fr="Vision Tech-Agro Dz" data-ar="رؤية التقنية الزراعية الجزائرية">Vision Tech-Agro Dz</h1>
+            <div class="main-subtitle" data-fr="Plateforme intelligente de gestion technique du verger avec IoT, visualisation et alertes en temps réel." data-ar="منصة ذكية لإدارة البساتين بتقنيات إنترنت الأشياء والتنبيهات الفورية.">
+                Plateforme intelligente de gestion technique du verger avec IoT, visualisation et alertes en temps réel.
             </div>
-            <div class="language-switch">
-                <button onclick="switchLanguage('fr')" class="lang-btn active" data-lang="fr">Français</button>
-                <button onclick="switchLanguage('ar')" class="lang-btn" data-lang="ar">العربية</button>
-            </div>
-        </header>
-
-        <main class="main-content">
-            <div class="hero-section">
-                <div class="hero-content">
-                    <h2 data-fr="Gestion Intelligente de votre Verger" data-ar="إدارة ذكية لبستانك">Gestion Intelligente de votre Verger</h2>
-                    <p data-fr="Surveillez en temps réel vos arbres, optimisez l'irrigation et prenez des décisions éclairées grâce à nos capteurs IoT" data-ar="راقب أشجارك في الوقت الفعلي، وحسّن الري واتخذ قرارات مدروسة بفضل مستشعرات إنترنت الأشياء">Surveillez en temps réel vos arbres, optimisez l'irrigation et prenez des décisions éclairées grâce à nos capteurs IoT</p>
-                    
-                    <div class="features">
-                        <div class="feature">
-                            <i class="fas fa-thermometer-half"></i>
-                            <span data-fr="Surveillance en temps réel" data-ar="مراقبة في الوقت الفعلي">Surveillance en temps réel</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-tint"></i>
-                            <span data-fr="Irrigation intelligente" data-ar="ري ذكي">Irrigation intelligente</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-chart-line"></i>
-                            <span data-fr="Analyses avancées" data-ar="تحليلات متقدمة">Analyses avancées</span>
-                        </div>
-                    </div>
+            <button class="cta-btn" onclick="document.getElementById('why').scrollIntoView({behavior:'smooth'})" data-fr="Découvrir la plateforme" data-ar="اكتشف المنصة">Découvrir la plateforme</button>
+        </div>
+    </section>
+    <!-- CONNEXION SECTION -->
+    <section class="section section-connexion" id="connexion">
+        <div class="login-card">
+            <h3 data-fr="Connexion" data-ar="تسجيل الدخول">Connexion</h3>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username" data-fr="Nom d'utilisateur" data-ar="اسم المستخدم">Nom d'utilisateur</label>
+                    <input type="text" id="username" name="username" required>
                 </div>
-                
-                <div class="login-section">
-                    <div class="login-card">
-                        <h3 data-fr="Connexion" data-ar="تسجيل الدخول">Connexion</h3>
-                        <form id="loginForm" class="login-form">
-                            <div class="form-group">
-                                <label for="username" data-fr="Nom d'utilisateur" data-ar="اسم المستخدم">Nom d'utilisateur</label>
-                                <input type="text" id="username" name="username" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password" data-fr="Mot de passe" data-ar="كلمة المرور">Mot de passe</label>
-                                <input type="password" id="password" name="password" required>
-                            </div>
-                            <button type="submit" class="btn-login" data-fr="Se connecter" data-ar="تسجيل الدخول">Se connecter</button>
-                        </form>
-                        <div id="loginMessage" class="message"></div>
-                    </div>
+                <div class="form-group">
+                    <label for="password" data-fr="Mot de passe" data-ar="كلمة المرور">Mot de passe</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn-login" data-fr="Se connecter" data-ar="تسجيل الدخول">Se connecter</button>
+            </form>
+            <div id="loginMessage" class="message"></div>
+        </div>
+    </section>
+    <!-- WHY SECTION -->
+    <section class="section section-why" id="why">
+        <div class="about-title" data-fr="Pourquoi choisir Vision Tech-Agro Dz ?" data-ar="لماذا منصة رؤية التقنية الزراعية؟">Pourquoi choisir Vision Tech-Agro Dz ?</div>
+        <div class="about-features">
+            <div class="about-feature">
+                <i class="fas fa-broadcast-tower"></i>
+                <div class="about-feature-content">
+                    <span data-fr="Surveillance IoT" data-ar="مراقبة ذكية">Surveillance IoT</span>
+                    <p data-fr="Capteurs connectés pour suivre température, humidité, pH et luminosité en temps réel." data-ar="مستشعرات متصلة لمتابعة الحرارة والرطوبة ودرجة الحموضة والإضاءة لحظياً.">Capteurs connectés pour suivre température, humidité, pH et luminosité en temps réel.</p>
                 </div>
             </div>
-        </main>
-
-        <footer class="footer">
-            <p data-fr="© 2024 Plateforme de Gestion Technique du Verger. Tous droits réservés." data-ar="© 2024 منصة إدارة البستان التقنية. جميع الحقوق محفوظة.">© 2024 Plateforme de Gestion Technique du Verger. Tous droits réservés.</p>
-        </footer>
-    </div>
-
+            <div class="about-feature">
+                <i class="fas fa-bell"></i>
+                <div class="about-feature-content">
+                    <span data-fr="Alertes intelligentes" data-ar="تنبيهات ذكية">Alertes intelligentes</span>
+                    <p data-fr="Recevez des notifications personnalisées pour agir rapidement et protéger votre verger." data-ar="تلقي إشعارات مخصصة للتصرف بسرعة وحماية البستان.">Recevez des notifications personnalisées pour agir rapidement et protéger votre verger.</p>
+                </div>
+            </div>
+            <div class="about-feature">
+                <i class="fas fa-chart-bar"></i>
+                <div class="about-feature-content">
+                    <span data-fr="Visualisation avancée" data-ar="تحليلات متقدمة">Visualisation avancée</span>
+                    <p data-fr="Graphiques, tableaux et cartes pour une prise de décision éclairée et efficace." data-ar="رسوم بيانية وجداول وخرائط لاتخاذ قرارات مدروسة وفعالة.">Graphiques, tableaux et cartes pour une prise de décision éclairée et efficace.</p>
+                </div>
+            </div>
+            <div class="about-feature">
+                <i class="fas fa-users-cog"></i>
+                <div class="about-feature-content">
+                    <span data-fr="Gestion collaborative" data-ar="إدارة تعاونية">Gestion collaborative</span>
+                    <p data-fr="Plusieurs profils utilisateurs, gestion des rôles et sécurité renforcée." data-ar="عدة ملفات مستخدمين، إدارة الأدوار وأمان معزز.">Plusieurs profils utilisateurs, gestion des rôles et sécurité renforcée.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FOOTER ENTREPRISE -->
+    <footer class="footer-bar">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/image1.jpg" alt="Logo Vision Tech-Agro Dz" title="Logo Vision Tech-Agro Dz">
+                <span style="font-weight:700;font-size:1.1rem;">Vision Tech-Agro Dz</span>
+            </div>
+            <div class="footer-links">
+                <a href="#description">Accueil</a>
+                <a href="#why">Pourquoi nous ?</a>
+                <a href="#connexion">Connexion</a>
+                <a href="#">Contact</a>
+                <a href="#">Mentions légales</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            © 2024 Vision Tech-Agro Dz. Tous droits réservés.
+        </div>
+    </footer>
     <script src="js/auth.js"></script>
     <script src="js/language.js"></script>
 </body>
