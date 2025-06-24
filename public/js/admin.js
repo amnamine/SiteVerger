@@ -3,6 +3,33 @@ let currentUser = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeAdmin();
+    // Navigation simple via cards dans la section admin
+    const btnShowUsers = document.getElementById('btnShowUsers');
+    const btnShowCarac = document.getElementById('btnShowCarac');
+    const btnBackToAdmin = document.getElementById('btnBackToAdmin');
+    const sectionUsers = document.getElementById('users');
+    const sectionCarac = document.getElementById('caracteristiques');
+    const sectionAdmin = document.querySelector('.section-admin');
+    function showSection(section) {
+        sectionUsers.style.display = 'none';
+        sectionCarac.style.display = 'none';
+        sectionAdmin.style.display = 'none';
+        section.classList.remove('fadeInUp');
+        void section.offsetWidth;
+        section.style.display = 'block';
+        section.classList.add('fadeInUp');
+    }
+    if (btnShowUsers && btnShowCarac && sectionUsers && sectionCarac && sectionAdmin) {
+        btnShowUsers.addEventListener('click', function() { showSection(sectionUsers); });
+        btnShowCarac.addEventListener('click', function() { showSection(sectionCarac); });
+        if (btnBackToAdmin) {
+            btnBackToAdmin.addEventListener('click', function() { showSection(sectionAdmin); });
+        }
+        // Par défaut, aucune section affichée
+        sectionUsers.style.display = 'none';
+        sectionCarac.style.display = 'none';
+        sectionAdmin.style.display = 'block';
+    }
 });
 
 async function initializeAdmin() {
