@@ -529,37 +529,212 @@ async function handleAddIntervention(event) {
 
 // Fonctions utilitaires
 function editCapteur(id) {
-    alert('Fonctionnalité d\'édition à implémenter');
+    fetch(`/api/capteurs/${id}`)
+        .then(res => res.ok ? res.json() : Promise.reject(res))
+        .then(capteur => {
+            const content = `
+                <form id="editCapteurForm">
+                    <div class="form-group">
+                        <label for="editCapteurNom">Nom</label>
+                        <input type="text" id="editCapteurNom" name="nom" value="${capteur.nom}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editCapteurType">Type</label>
+                        <input type="text" id="editCapteurType" name="type" value="${capteur.type}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editCapteurLocalisation">Localisation</label>
+                        <input type="text" id="editCapteurLocalisation" name="localisation" value="${capteur.localisation}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editCapteurStatut">Statut</label>
+                        <input type="text" id="editCapteurStatut" name="statut" value="${capteur.statut || 'actif'}" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            `;
+            showModal('Modifier le capteur', content);
+            document.getElementById('editCapteurForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const data = {
+                    nom: formData.get('nom'),
+                    type: formData.get('type'),
+                    localisation: formData.get('localisation'),
+                    statut: formData.get('statut')
+                };
+                const response = await fetch(`/api/capteurs/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (response.ok) {
+                    closeModal();
+                    loadCapteurs();
+                } else {
+                    alert('Erreur lors de la modification');
+                }
+            });
+        })
+        .catch(() => alert('Capteur non trouvé ou erreur serveur.'));
 }
 
 function deleteCapteur(id) {
     if (confirm('Voulez-vous vraiment supprimer ce capteur ?')) {
-        alert('Fonctionnalité de suppression à implémenter');
+        fetch(`/api/capteurs/${id}`, { method: 'DELETE' })
+            .then(res => res.json())
+            .then(() => loadCapteurs())
+            .catch(() => alert('Erreur lors de la suppression'));
     }
 }
 
 function editArbre(id) {
-    alert('Fonctionnalité d\'édition à implémenter');
+    fetch(`/api/arbres/${id}`)
+        .then(res => res.ok ? res.json() : Promise.reject(res))
+        .then(arbre => {
+            const content = `
+                <form id="editArbreForm">
+                    <div class="form-group">
+                        <label for="editArbreVariete">Variété</label>
+                        <input type="text" id="editArbreVariete" name="nom_variete" value="${arbre.nom_variete}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editArbreAge">Âge</label>
+                        <input type="number" id="editArbreAge" name="age" value="${arbre.age}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editArbreLocalisation">Localisation</label>
+                        <input type="text" id="editArbreLocalisation" name="localisation" value="${arbre.localisation}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editArbreStatut">Statut</label>
+                        <input type="text" id="editArbreStatut" name="statut" value="${arbre.statut || 'sain'}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editArbreDatePlantation">Date de plantation</label>
+                        <input type="date" id="editArbreDatePlantation" name="date_plantation" value="${arbre.date_plantation || ''}" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            `;
+            showModal('Modifier l\'arbre', content);
+            document.getElementById('editArbreForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const data = {
+                    nom_variete: formData.get('nom_variete'),
+                    age: parseInt(formData.get('age')),
+                    localisation: formData.get('localisation'),
+                    statut: formData.get('statut'),
+                    date_plantation: formData.get('date_plantation')
+                };
+                const response = await fetch(`/api/arbres/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (response.ok) {
+                    closeModal();
+                    loadArbres();
+                } else {
+                    alert('Erreur lors de la modification');
+                }
+            });
+        })
+        .catch(() => alert('Arbre non trouvé ou erreur serveur.'));
 }
 
 function deleteArbre(id) {
     if (confirm('Voulez-vous vraiment supprimer cet arbre ?')) {
-        alert('Fonctionnalité de suppression à implémenter');
+        fetch(`/api/arbres/${id}`, { method: 'DELETE' })
+            .then(res => res.json())
+            .then(() => loadArbres())
+            .catch(() => alert('Erreur lors de la suppression'));
     }
 }
 
 function editIntervention(id) {
-    alert('Fonctionnalité d\'édition à implémenter');
+    fetch(`/api/interventions/${id}`)
+        .then(res => res.ok ? res.json() : Promise.reject(res))
+        .then(intervention => {
+            const content = `
+                <form id="editInterventionForm">
+                    <div class="form-group">
+                        <label for="editInterventionType">Type</label>
+                        <input type="text" id="editInterventionType" name="type" value="${intervention.type}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editInterventionDescription">Description</label>
+                        <textarea id="editInterventionDescription" name="description">${intervention.description || ''}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="editInterventionArbreId">Arbre ID</label>
+                        <input type="number" id="editInterventionArbreId" name="arbre_id" value="${intervention.arbre_id || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="editInterventionStatut">Statut</label>
+                        <input type="text" id="editInterventionStatut" name="statut" value="${intervention.statut || 'planifie'}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editInterventionDate">Date d'intervention</label>
+                        <input type="date" id="editInterventionDate" name="date_intervention" value="${intervention.date_intervention || ''}" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            `;
+            showModal('Modifier l\'intervention', content);
+            document.getElementById('editInterventionForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const data = {
+                    type: formData.get('type'),
+                    description: formData.get('description'),
+                    arbre_id: formData.get('arbre_id'),
+                    statut: formData.get('statut'),
+                    date_intervention: formData.get('date_intervention')
+                };
+                const response = await fetch(`/api/interventions/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (response.ok) {
+                    closeModal();
+                    loadInterventions();
+                } else {
+                    alert('Erreur lors de la modification');
+                }
+            });
+        })
+        .catch(() => alert('Intervention non trouvée ou erreur serveur.'));
 }
 
 function deleteIntervention(id) {
     if (confirm('Voulez-vous vraiment supprimer cette intervention ?')) {
-        alert('Fonctionnalité de suppression à implémenter');
+        fetch(`/api/interventions/${id}`, { method: 'DELETE' })
+            .then(res => res.json())
+            .then(() => loadInterventions())
+            .catch(() => alert('Erreur lors de la suppression'));
     }
 }
 
 async function markAlerteAsRead(id) {
-    alert('Fonctionnalité à implémenter');
+    const response = await fetch(`/api/alertes/${id}/lu`, { method: 'PATCH' });
+    if (response.ok) {
+        loadAlertes();
+        loadOverviewData();
+    } else {
+        alert('Erreur lors de la mise à jour de l\'alerte');
+    }
 }
 
 function showUsersManagement() {
@@ -567,5 +742,14 @@ function showUsersManagement() {
 }
 
 function backupDatabase() {
-    alert('Fonctionnalité de sauvegarde à implémenter');
+    fetch('/api/backup', { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                alert('Sauvegarde réussie ! Fichier : ' + data.backup);
+            } else {
+                alert('Erreur lors de la sauvegarde');
+            }
+        })
+        .catch(() => alert('Erreur lors de la sauvegarde'));
 } 

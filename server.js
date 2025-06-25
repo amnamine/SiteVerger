@@ -5,6 +5,7 @@ const session = require('express-session');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 10000; 
@@ -374,6 +375,101 @@ app.get('/dashboard', (req, res) => {
 // Route pour la gestion des utilisateurs (admin seulement)
 app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+// --- ROUTES POUR MODIFIER/SUPPRIMER CAPTEURS ---
+app.put('/api/capteurs/:id', requireAuth, (req, res) => {
+    const { nom, type, localisation, statut } = req.body;
+    db.run('UPDATE capteurs SET nom = ?, type = ?, localisation = ?, statut = ? WHERE id = ?',
+        [nom, type, localisation, statut, req.params.id],
+        function(err) {
+            if (err) return res.status(500).json({ error: 'Erreur serveur' });
+            res.json({ success: true });
+        }
+    );
+});
+app.delete('/api/capteurs/:id', requireAuth, (req, res) => {
+    db.run('DELETE FROM capteurs WHERE id = ?', [req.params.id], function(err) {
+        if (err) return res.status(500).json({ error: 'Erreur serveur' });
+        res.json({ success: true });
+    });
+});
+// --- ROUTES POUR MODIFIER/SUPPRIMER ARBRES ---
+app.put('/api/arbres/:id', requireAuth, (req, res) => {
+    const { nom_variete, age, localisation, statut, date_plantation } = req.body;
+    db.run('UPDATE arbres SET nom_variete = ?, age = ?, localisation = ?, statut = ?, date_plantation = ? WHERE id = ?',
+        [nom_variete, age, localisation, statut, date_plantation, req.params.id],
+        function(err) {
+            if (err) return res.status(500).json({ error: 'Erreur serveur' });
+            res.json({ success: true });
+        }
+    );
+});
+app.delete('/api/arbres/:id', requireAuth, (req, res) => {
+    db.run('DELETE FROM arbres WHERE id = ?', [req.params.id], function(err) {
+        if (err) return res.status(500).json({ error: 'Erreur serveur' });
+        res.json({ success: true });
+    });
+});
+// --- ROUTES POUR MODIFIER/SUPPRIMER INTERVENTIONS ---
+app.put('/api/interventions/:id', requireAuth, (req, res) => {
+    const { type, description, arbre_id, statut, date_intervention } = req.body;
+    db.run('UPDATE interventions SET type = ?, description = ?, arbre_id = ?, statut = ?, date_intervention = ? WHERE id = ?',
+        [type, description, arbre_id, statut, date_intervention, req.params.id],
+        function(err) {
+            if (err) return res.status(500).json({ error: 'Erreur serveur' });
+            res.json({ success: true });
+        }
+    );
+});
+app.delete('/api/interventions/:id', requireAuth, (req, res) => {
+    db.run('DELETE FROM interventions WHERE id = ?', [req.params.id], function(err) {
+        if (err) return res.status(500).json({ error: 'Erreur serveur' });
+        res.json({ success: true });
+    });
+});
+// --- ROUTE POUR MARQUER UNE ALERTE COMME LUE ---
+app.patch('/api/alertes/:id/lu', requireAuth, (req, res) => {
+    db.run('UPDATE alertes SET lu = 1 WHERE id = ?', [req.params.id], function(err) {
+        if (err) return res.status(500).json({ error: 'Erreur serveur' });
+        res.json({ success: true });
+    });
+});
+// --- ROUTE POUR SAUVEGARDE DE LA BASE ---
+app.post('/api/backup', requireAuth, requireAdmin, (req, res) => {
+    const src = path.join(__dirname, 'database', 'verger.db');
+    const dest = path.join(__dirname, 'database', `verger_backup_${Date.now()}.db`);
+    fs.copyFile(src, dest, (err) => {
+        if (err) return res.status(500).json({ error: 'Erreur lors de la sauvegarde' });
+        res.json({ success: true, backup: path.basename(dest) });
+    });
+});
+
+// Route GET pour un capteur par ID
+app.get('/api/capteurs/:id', requireAuth, (req, res) => {
+    db.get('SELECT * FROM capteurs WHERE id = ?', [req.params.id], (err, capteur) => {
+        if (err) return res.status(500).json({ error: 'Erreur serveur' });
+        if (!capteur) return res.status(404).json({ error: 'Capteur non trouvé' });
+        res.json(capteur);
+    });
+});
+
+// Route GET pour un arbre par ID
+app.get('/api/arbres/:id', requireAuth, (req, res) => {
+    db.get('SELECT * FROM arbres WHERE id = ?', [req.params.id], (err, arbre) => {
+        if (err) return res.status(500).json({ error: 'Erreur serveur' });
+        if (!arbre) return res.status(404).json({ error: 'Arbre non trouvé' });
+        res.json(arbre);
+    });
+});
+
+// Route GET pour une intervention par ID
+app.get('/api/interventions/:id', requireAuth, (req, res) => {
+    db.get('SELECT * FROM interventions WHERE id = ?', [req.params.id], (err, intervention) => {
+        if (err) return res.status(500).json({ error: 'Erreur serveur' });
+        if (!intervention) return res.status(404).json({ error: 'Intervention non trouvée' });
+        res.json(intervention);
+    });
 });
 
 // Démarrer le serveur
