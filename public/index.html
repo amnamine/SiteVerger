@@ -375,7 +375,7 @@
         <div class="navbar-nav">
             <a href="#description" class="active">Accueil</a>
             <a href="#why">Pourquoi nous ?</a>
-            <a href="#connexion">Connexion</a>
+            <a href="#" id="btnOpenLoginModal">Connexion</a>
         </div>
         <div class="navbar-lang">
             <button onclick="switchLanguage('fr')" class="lang-btn active" data-lang="fr">Français</button>
@@ -402,24 +402,6 @@
     <div style="width:100%;overflow:hidden;line-height:0;">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="display:block;width:100%;height:60px;"><path d="M0,0V46.29c47.29,22,104.09,29.05,158,17.39C267.85,44.15,327.29,0,400,0s132.15,44.15,242,63.68C695.91,75.34,752.71,68.29,800,46.29V0Z" opacity=".25" fill="#009688"></path><path d="M0,0V15.81C47.29,37.8,104.09,44.85,158,33.19C267.85,14.05,327.29,0,400,0s132.15,14.05,242,33.68C695.91,45.34,752.71,38.29,800,16.29V0Z" opacity=".5" fill="#00bcd4"></path><path d="M0,0V5.81C47.29,27.8,104.09,34.85,158,23.19C267.85,4.05,327.29,0,400,0s132.15,4.05,242,23.68C695.91,35.34,752.71,28.29,800,6.29V0Z" fill="#e8f5e9"></path></svg>
     </div>
-    <!-- CONNEXION SECTION -->
-    <section class="section section-connexion" id="connexion">
-        <div class="login-card glass-card fadeInUp">
-            <h3 data-fr="Connexion" data-ar="تسجيل الدخول">Connexion</h3>
-            <form id="loginForm" class="login-form">
-                <div class="form-group">
-                    <label for="username" data-fr="Nom d'utilisateur" data-ar="اسم المستخدم">Nom d'utilisateur</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password" data-fr="Mot de passe" data-ar="كلمة المرور">Mot de passe</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit" class="btn-login" data-fr="Se connecter" data-ar="تسجيل الدخول">Se connecter</button>
-            </form>
-            <div id="loginMessage" class="message"></div>
-        </div>
-    </section>
     <!-- WHY SECTION -->
     <section class="section section-why fadeInUp" id="why">
         <div class="about-title" data-fr="Pourquoi choisir Vision Tech-Agro Dz ?" data-ar="لماذا منصة رؤية التقنية الزراعية؟">Pourquoi choisir Vision Tech-Agro Dz ?</div>
@@ -488,7 +470,6 @@
             <div class="footer-links">
                 <a href="#description">Accueil</a>
                 <a href="#why">Pourquoi nous ?</a>
-                <a href="#connexion">Connexion</a>
                 <a href="#">Contact</a>
                 <a href="#">Mentions légales</a>
             </div>
@@ -503,7 +484,38 @@
             © 2024 Vision Tech-Agro Dz. Tous droits réservés.
         </div>
     </footer>
+    <!-- MODAL CONNEXION -->
+    <div id="loginModal" class="modal-overlay" style="display:none;z-index:1000;">
+        <div class="modal" style="max-width:350px;">
+            <div class="modal-header">
+                <h3 data-fr="Connexion" data-ar="تسجيل الدخول">Connexion</h3>
+                <button class="modal-close" onclick="closeLoginModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="username" data-fr="Nom d'utilisateur" data-ar="اسم المستخدم">Nom d'utilisateur</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" data-fr="Mot de passe" data-ar="كلمة المرور">Mot de passe</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn-login" data-fr="Se connecter" data-ar="تسجيل الدخول">Se connecter</button>
+                </form>
+                <div id="loginMessage" class="message"></div>
+            </div>
+        </div>
+    </div>
     <script src="js/auth.js"></script>
     <script src="js/language.js"></script>
+    <script>
+    document.getElementById('btnOpenLoginModal').onclick = function() {
+        document.getElementById('loginModal').style.display = 'flex';
+    };
+    function closeLoginModal() {
+        document.getElementById('loginModal').style.display = 'none';
+    }
+    </script>
 </body>
 </html> 

@@ -472,6 +472,35 @@ app.get('/api/interventions/:id', requireAuth, (req, res) => {
     });
 });
 
+// Route GET pour un utilisateur par ID (admin)
+app.get('/api/users/:id', requireAuth, requireAdmin, (req, res) => {
+    db.get('SELECT id, username, email, role, nom_complet, created_at FROM users WHERE id = ?', [req.params.id], (err, user) => {
+        if (err) return res.status(500).json({ error: 'Erreur serveur' });
+        if (!user) return res.status(404).json({ error: 'Utilisateur non trouvé' });
+        res.json(user);
+    });
+});
+
+// Route PUT pour modifier un utilisateur (admin)
+app.put('/api/users/:id', requireAuth, requireAdmin, (req, res) => {
+    const { username, email, role, nom_complet } = req.body;
+    db.run('UPDATE users SET username = ?, email = ?, role = ?, nom_complet = ? WHERE id = ?',
+        [username, email, role, nom_complet, req.params.id],
+        function(err) {
+            if (err) return res.status(500).json({ error: 'Erreur serveur' });
+            res.json({ success: true });
+        }
+    );
+});
+
+// Route DELETE pour supprimer un utilisateur (admin)
+app.delete('/api/users/:id', requireAuth, requireAdmin, (req, res) => {
+    db.run('DELETE FROM users WHERE id = ?', [req.params.id], function(err) {
+        if (err) return res.status(500).json({ error: 'Erreur serveur' });
+        res.json({ success: true });
+    });
+});
+
 // Démarrer le serveur
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);

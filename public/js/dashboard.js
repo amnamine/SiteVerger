@@ -752,4 +752,21 @@ function backupDatabase() {
             }
         })
         .catch(() => alert('Erreur lors de la sauvegarde'));
+}
+
+function showCarac() {
+    const content = `
+        <div style="padding:1.5rem;max-width:700px;">
+            <h2 style="text-align:center;color:var(--primary-color);font-size:2rem;margin-bottom:1.5rem;font-weight:700;letter-spacing:1px;">Caractéristiques des plantes</h2>
+            <ul style="font-size:1.1rem;line-height:2;">
+                <li><b>Température optimale :</b> 18-25°C</li>
+                <li><b>Humidité du sol :</b> 60-80%</li>
+                <li><b>pH du sol :</b> 6.0-7.5</li>
+                <li><b>Exposition :</b> Plein soleil</li>
+                <li><b>Fertilisation :</b> Azote, phosphore, potassium</li>
+                <li><b>Autres :</b> Bonne aération, arrosage régulier</li>
+            </ul>
+        </div>
+    `;
+    showModal('Caractéristiques des plantes', content);
 } 
