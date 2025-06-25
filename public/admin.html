@@ -28,78 +28,12 @@
         </div>
     </header>
 
-    <section class="section section-admin" style="margin-bottom:2.5rem;">
-        <h2 style="color:var(--primary-color);font-size:2rem;margin-bottom:1.5rem;font-weight:700;letter-spacing:1px;">Administration</h2>
-        <div class="dashboard-grid" style="margin-bottom:2.2rem;">
-            <div class="card" style="text-align:center;">
-                <h3 style="color:var(--primary-color);display:flex;align-items:center;gap:0.5rem;justify-content:center;"><i class="fas fa-users"></i> Gestion des utilisateurs</h3>
-                <button id="btnShowUsers" class="btn btn-primary" type="button">Gérer les utilisateurs</button>
-            </div>
-            <div class="card" style="text-align:center;">
-                <h3 style="color:var(--primary-color);display:flex;align-items:center;gap:0.5rem;justify-content:center;"><i class="fas fa-database"></i> Sauvegarde</h3>
-                <button class="btn btn-primary" type="button">Sauvegarder</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION CARACTÉRISTIQUES SOL (ADMIN) -->
-    <section id="caracteristiques" class="dashboard-section section-caracteristiques" style="margin-bottom:2.5rem;display:none;">
-        <button id="btnBackToAdmin" class="btn btn-secondary" style="margin-bottom:2rem;display:block;margin-left:auto;margin-right:auto;">← Retour au dashboard admin</button>
-        <h2 style="text-align:center;color:var(--primary-color);font-size:2rem;margin-bottom:1.5rem;font-weight:700;letter-spacing:1px;" data-fr="Caractéristiques du sol mesurées" data-ar="خصائص التربة المقاسة">Caractéristiques du sol mesurées</h2>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:2rem;">
-            <img src="images/image3.jpg" alt="Soil Parameter Detector" style="width:100%;max-width:420px;border-radius:18px;box-shadow:0 4px 24px rgba(0,188,212,0.10);margin-bottom:1.2rem;animation:fadeInDown 1s;">
-            <div class="soil-params-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;max-width:950px;width:100%;margin-top:1.5rem;">
-                <div class="soil-param-card fadeInUp" style="background:#43a047;color:#fff;border-radius:18px;padding:1.2rem;text-align:center;box-shadow:0 4px 24px rgba(67,160,71,0.13);transition:transform 0.2s;">
-                    <div style="font-size:1.1rem;font-weight:600;">🌡️ <span data-fr="Température (°C)" data-ar="درجة الحرارة (°م)">Température (°C)</span></div>
-                    <div style="font-size:2.2rem;font-weight:700;">25,6</div>
-                    <div style="font-size:1rem;margin-top:0.5rem;" data-fr="Indique la chaleur du sol, essentielle pour l'activité biologique et la croissance des plantes." data-ar="درجة حرارة التربة مهمة لنشاط الكائنات الحية الدقيقة ونمو النبات.">Indique la chaleur du sol, essentielle pour l'activité biologique et la croissance des plantes.</div>
-                </div>
-                <div class="soil-param-card fadeInUp" style="background:#1976d2;color:#fff;border-radius:18px;padding:1.2rem;text-align:center;box-shadow:0 4px 24px rgba(25,118,210,0.13);transition:transform 0.2s;">
-                    <div style="font-size:1.1rem;font-weight:600;">💧 <span data-fr="Humidité (%)" data-ar="رطوبة (%)">Humidité (%)</span></div>
-                    <div style="font-size:2.2rem;font-weight:700;">63,4</div>
-                    <div style="font-size:1rem;margin-top:0.5rem;" data-fr="Taux d'eau dans le sol, crucial pour la croissance et la santé des plantes." data-ar="نسبة الماء في التربة، ضرورية لنمو وصحة النبات.">Taux d'eau dans le sol, crucial pour la croissance et la santé des plantes.</div>
-                </div>
-                <div class="soil-param-card fadeInUp" style="background:#8e24aa;color:#fff;border-radius:18px;padding:1.2rem;text-align:center;box-shadow:0 4px 24px rgba(142,36,170,0.13);transition:transform 0.2s;">
-                    <div style="font-size:1.1rem;font-weight:600;">⚡ <span data-fr="Conductivité (EC)" data-ar="الموصلية الكهربائية">Conductivité (EC)</span></div>
-                    <div style="font-size:2.2rem;font-weight:700;">939</div>
-                    <div style="font-size:1rem;margin-top:0.5rem;" data-fr="Mesure la salinité du sol, indicateur de fertilité et de qualité." data-ar="مؤشر ملوحة التربة وخصوبتها وجودتها.">Mesure la salinité du sol, indicateur de fertilité et de qualité.</div>
-                </div>
-                <div class="soil-param-card fadeInUp" style="background:#ff9800;color:#fff;border-radius:18px;padding:1.2rem;text-align:center;box-shadow:0 4px 24px rgba(255,152,0,0.13);transition:transform 0.2s;">
-                    <div style="font-size:1.1rem;font-weight:600;">⚗️ <span data-fr="pH" data-ar="الأس الهيدروجيني">pH</span></div>
-                    <div style="font-size:2.2rem;font-weight:700;">6.0</div>
-                    <div style="font-size:1rem;margin-top:0.5rem;" data-fr="Indique l'acidité ou l'alcalinité du sol, important pour la disponibilité des nutriments." data-ar="مؤشر حموضة أو قلوية التربة، مهم لتوفر العناصر الغذائية.">Indique l'acidité ou l'alcalinité du sol, important pour la disponibilité des nutriments.</div>
-                </div>
-                <div class="soil-param-card fadeInUp" style="background:#d81b60;color:#fff;border-radius:18px;padding:1.2rem;text-align:center;box-shadow:0 4px 24px rgba(216,27,96,0.13);transition:transform 0.2s;">
-                    <div style="font-size:1.1rem;font-weight:600;">🧪 <span data-fr="Azote (N) mg/kg" data-ar="النيتروجين (N) ملغ/كغ">Azote (N) mg/kg</span></div>
-                    <div style="font-size:2.2rem;font-weight:700;">46</div>
-                    <div style="font-size:1rem;margin-top:0.5rem;" data-fr="Favorise la croissance des feuilles, la couleur verte et la photosynthèse." data-ar="يساعد في نمو الأوراق، اللون الأخضر والتمثيل الضوئي.">Favorise la croissance des feuilles, la couleur verte et la photosynthèse.</div>
-                </div>
-                <div class="soil-param-card fadeInUp" style="background:#0288d1;color:#fff;border-radius:18px;padding:1.2rem;text-align:center;box-shadow:0 4px 24px rgba(2,136,209,0.13);transition:transform 0.2s;">
-                    <div style="font-size:1.1rem;font-weight:600;">🧪 <span data-fr="Phosphore (P) mg/kg" data-ar="الفوسفور (P) ملغ/كغ">Phosphore (P) mg/kg</span></div>
-                    <div style="font-size:2.2rem;font-weight:700;">65</div>
-                    <div style="font-size:1rem;margin-top:0.5rem;" data-fr="Stimule le développement des racines, la floraison et la fructification." data-ar="يعزز نمو الجذور، الإزهار والإثمار.">Stimule le développement des racines, la floraison et la fructification.</div>
-                </div>
-                <div class="soil-param-card fadeInUp" style="background:#00bcd4;color:#fff;border-radius:18px;padding:1.2rem;text-align:center;box-shadow:0 4px 24px rgba(0,188,212,0.13);transition:transform 0.2s;">
-                    <div style="font-size:1.1rem;font-weight:600;">🧪 <span data-fr="Potassium (K) mg/kg" data-ar="البوتاسيوم (K) ملغ/كغ">Potassium (K) mg/kg</span></div>
-                    <div style="font-size:2.2rem;font-weight:700;">150</div>
-                    <div style="font-size:1rem;margin-top:0.5rem;" data-fr="Améliore la résistance aux maladies et la qualité des fruits." data-ar="يحسن مقاومة الأمراض وجودة الثمار.">Améliore la résistance aux maladies et la qualité des fruits.</div>
-                </div>
-                <div class="soil-param-card fadeInUp" style="background:#ffb74d;color:#fff;border-radius:18px;padding:1.2rem;text-align:center;box-shadow:0 4px 24px rgba(255,183,77,0.13);transition:transform 0.2s;">
-                    <div style="font-size:1.1rem;font-weight:600;">🌱 <span data-fr="Fertilité (mg/kg)" data-ar="الخصوبة (ملغ/كغ)">Fertilité (mg/kg)</span></div>
-                    <div style="font-size:2.2rem;font-weight:700;">516</div>
-                    <div style="font-size:1rem;margin-top:0.5rem;" data-fr="Indique la capacité du sol à soutenir la croissance et la productivité des plantes." data-ar="مؤشر قدرة التربة على دعم نمو وإنتاجية النبات.">Indique la capacité du sol à soutenir la croissance et la productivité des plantes.</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- SECTION GESTION UTILISATEURS -->
-    <section id="users" class="dashboard-section section-users" style="margin-bottom:2.5rem;display:none;">
+    <section id="users" class="dashboard-section section-users" style="margin-bottom:2.5rem;display:block;">
         <div class="section-header">
             <h2 data-fr="Gestion des utilisateurs" data-ar="إدارة المستخدمين">Gestion des utilisateurs</h2>
             <button class="btn btn-primary" onclick="showAddUserModal()" data-fr="Ajouter un utilisateur" data-ar="إضافة مستخدم">Ajouter un utilisateur</button>
         </div>
-        
         <div class="table-container">
             <table class="table" id="usersTable">
                 <thead>

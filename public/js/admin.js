@@ -139,14 +139,68 @@ async function handleAddUser(event) {
 }
 
 function editUser(id) {
-    // Implémenter l'édition des utilisateurs
-    alert('Fonctionnalité d\'édition à implémenter');
+    fetch(`/api/users/${id}`)
+        .then(res => res.ok ? res.json() : Promise.reject(res))
+        .then(user => {
+            const content = `
+                <form id="editUserForm">
+                    <div class="form-group">
+                        <label for="editUserNomComplet">Nom complet</label>
+                        <input type="text" id="editUserNomComplet" name="nom_complet" value="${user.nom_complet}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editUserUsername">Nom d'utilisateur</label>
+                        <input type="text" id="editUserUsername" name="username" value="${user.username}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editUserEmail">Email</label>
+                        <input type="email" id="editUserEmail" name="email" value="${user.email}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editUserRole">Rôle</label>
+                        <select id="editUserRole" name="role" required>
+                            <option value="fermier" ${user.role === 'fermier' ? 'selected' : ''}>Fermier</option>
+                            <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Administrateur</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            `;
+            showModal('Modifier l\'utilisateur', content);
+            document.getElementById('editUserForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const data = {
+                    nom_complet: formData.get('nom_complet'),
+                    username: formData.get('username'),
+                    email: formData.get('email'),
+                    role: formData.get('role')
+                };
+                const response = await fetch(`/api/users/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (response.ok) {
+                    closeModal();
+                    loadUsers();
+                } else {
+                    alert('Erreur lors de la modification');
+                }
+            });
+        })
+        .catch(() => alert('Utilisateur non trouvé ou erreur serveur.'));
 }
 
 function deleteUser(id) {
     if (confirm('Voulez-vous vraiment supprimer cet utilisateur ?')) {
-        // Implémenter la suppression des utilisateurs
-        alert('Fonctionnalité de suppression à implémenter');
+        fetch(`/api/users/${id}`, { method: 'DELETE' })
+            .then(res => res.json())
+            .then(() => loadUsers())
+            .catch(() => alert('Erreur lors de la suppression'));
     }
 }
 
