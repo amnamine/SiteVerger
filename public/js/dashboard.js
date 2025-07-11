@@ -6,6 +6,22 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeDashboard();
 });
 
+function setStaticSoilParams() {
+    document.getElementById('soilTempValue').textContent = '25,6';
+    document.getElementById('soilMoistureValue').textContent = '63,4';
+    document.getElementById('soilECValue').textContent = '939';
+    document.getElementById('soilPHValue').textContent = '6.0';
+    document.getElementById('soilNValue').textContent = '46';
+    document.getElementById('soilPValue').textContent = '65';
+    document.getElementById('soilKValue').textContent = '150';
+    document.getElementById('soilFertilityValue').textContent = '516';
+}
+
+function setStaticOverviewStats() {
+    document.getElementById('treeCount').textContent = '148';
+    document.getElementById('alertCount').textContent = '83';
+}
+
 async function initializeDashboard() {
     // Vérifier l'authentification
     currentUser = await requireAuth();
@@ -33,6 +49,10 @@ async function initializeDashboard() {
     
     // Initialiser les graphiques
     initializeCharts();
+    // Valeurs statiques pour les paramètres du sol
+    setStaticSoilParams();
+    // Valeurs statiques pour les stats d'ensemble
+    setStaticOverviewStats();
 }
 
 function initializeNavigation() {

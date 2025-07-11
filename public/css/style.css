@@ -873,3 +873,73 @@ h1, h2, h3, h4, h5, h6 {
     .branding-logo { width: 60px; height: 60px; }
     .footer-bar { padding: 0.7rem 0 0.4rem 0; }
 } 
+
+/* ---- Soil Parameters Tiles ---- */
+.soil-params-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+    margin: 2rem 0 2.5rem 0;
+}
+.soil-tile {
+    background: var(--card-bg);
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 1.2rem 1rem 1.1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 110px;
+    position: relative;
+    transition: box-shadow 0.2s;
+}
+.soil-tile:hover {
+    box-shadow: 0 6px 24px rgba(0,188,212,0.18);
+}
+.soil-tile-label {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 2;
+}
+.soil-tile-value {
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #fff;
+    z-index: 2;
+}
+/* Couleurs personnalisées pour chaque tuile */
+.soil-tile-temp { background: linear-gradient(135deg, #43a047 80%, #388e3c 100%); }
+.soil-tile-moisture { background: linear-gradient(135deg, #1976d2 80%, #64b5f6 100%); }
+.soil-tile-ec { background: linear-gradient(135deg, #8e24aa 80%, #ce93d8 100%); }
+.soil-tile-ph { background: linear-gradient(135deg, #ff9800 80%, #ffb74d 100%); }
+.soil-tile-n { background: linear-gradient(135deg, #d81b60 80%, #f06292 100%); }
+.soil-tile-p { background: linear-gradient(135deg, #0288d1 80%, #4fc3f7 100%); }
+.soil-tile-k { background: linear-gradient(135deg, #00bcd4 80%, #80deea 100%); }
+.soil-tile-fertility { background: linear-gradient(135deg, #ff7043 80%, #ffab91 100%); }
+.soil-tile i {
+    font-size: 1.2rem;
+    margin-right: 0.3rem;
+    opacity: 0.92;
+}
+@media (max-width: 900px) {
+    .soil-params-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .soil-params-grid {
+        grid-template-columns: 1fr;
+    }
+    .soil-tile {
+        min-height: 90px;
+        padding: 1rem 0.7rem;
+    }
+    .soil-tile-value {
+        font-size: 1.5rem;
+    }
+} 

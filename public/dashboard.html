@@ -39,23 +39,42 @@
         <section id="overview" class="dashboard-section active">
             <h2 data-fr="Vue d'ensemble du verger" data-ar="نظرة عامة على البستان">Vue d'ensemble du verger</h2>
             
+            <div class="soil-params-grid">
+                <div class="soil-tile soil-tile-temp">
+                    <div class="soil-tile-label"><i class="fas fa-thermometer-half"></i> Température (°C)</div>
+                    <div class="soil-tile-value" id="soilTempValue">--</div>
+                </div>
+                <div class="soil-tile soil-tile-moisture">
+                    <div class="soil-tile-label"><i class="fas fa-tint"></i> Humidité (%)</div>
+                    <div class="soil-tile-value" id="soilMoistureValue">--</div>
+                </div>
+                <div class="soil-tile soil-tile-ec">
+                    <div class="soil-tile-label"><i class="fas fa-bolt"></i> Conductivité (EC) µS/cm</div>
+                    <div class="soil-tile-value" id="soilECValue">--</div>
+                </div>
+                <div class="soil-tile soil-tile-ph">
+                    <div class="soil-tile-label"><i class="fas fa-flask"></i> pH</div>
+                    <div class="soil-tile-value" id="soilPHValue">--</div>
+                </div>
+                <div class="soil-tile soil-tile-n">
+                    <div class="soil-tile-label"><i class="fas fa-leaf"></i> Azote (N) mg/kg</div>
+                    <div class="soil-tile-value" id="soilNValue">--</div>
+                </div>
+                <div class="soil-tile soil-tile-p">
+                    <div class="soil-tile-label"><i class="fas fa-seedling"></i> Phosphore (P) mg/kg</div>
+                    <div class="soil-tile-value" id="soilPValue">--</div>
+                </div>
+                <div class="soil-tile soil-tile-k">
+                    <div class="soil-tile-label"><i class="fas fa-apple-alt"></i> Potassium (K) mg/kg</div>
+                    <div class="soil-tile-value" id="soilKValue">--</div>
+                </div>
+                <div class="soil-tile soil-tile-fertility">
+                    <div class="soil-tile-label"><i class="fas fa-star"></i> Fertilité mg/kg</div>
+                    <div class="soil-tile-value" id="soilFertilityValue">--</div>
+                </div>
+            </div>
+            
             <div class="dashboard-grid">
-                <div class="card">
-                    <h3><i class="fas fa-thermometer-half"></i> <span data-fr="Température actuelle" data-ar="درجة الحرارة الحالية">Température actuelle</span></h3>
-                    <div class="stat-item">
-                        <div class="stat-value" id="currentTemp">--°C</div>
-                        <div class="stat-label" data-fr="Dernière mise à jour" data-ar="آخر تحديث">Dernière mise à jour</div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <h3><i class="fas fa-tint"></i> <span data-fr="Humidité du sol" data-ar="رطوبة التربة">Humidité du sol</span></h3>
-                    <div class="stat-item">
-                        <div class="stat-value" id="currentHumidity">--%</div>
-                        <div class="stat-label" data-fr="Niveau optimal" data-ar="المستوى الأمثل">Niveau optimal</div>
-                    </div>
-                </div>
-                
                 <div class="card">
                     <h3><i class="fas fa-tree"></i> <span data-fr="Arbres surveillés" data-ar="الأشجار المراقبة">Arbres surveillés</span></h3>
                     <div class="stat-item">
